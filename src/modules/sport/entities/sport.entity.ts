@@ -7,7 +7,7 @@ export class Sport {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ length: 255 })
   name: string;
 
   @Column({ type: 'text', nullable: true })

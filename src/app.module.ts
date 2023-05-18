@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SportModule } from './sport/sport.module';
-import { ProductsModule } from './products/products.module';
-import { CatogoriesModule } from './catogories/catogories.module';
+import { SportModule } from './modules/sport/sport.module';
+import { ProductsModule } from './modules/products/products.module';
+import { CatogoriesModule } from './modules/catogories/catogories.module';
 
 @Module({
   imports: [

@@ -1,4 +1,3 @@
-import { CategoryProduct } from 'src/catogories/entities/category-product.entity';
 import { Status } from 'src/common/enum/status-enum';
 import {
   Entity,
@@ -7,9 +6,11 @@ import {
   CreateDateColumn,
   OneToMany,
 } from 'typeorm';
+import { CategoryProduct } from './category-product.entity';
+import { SportCategories } from 'src/modules/sport/entities/sport-category.entity';
 
 @Entity()
-export class Product {
+export class Category {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -18,12 +19,6 @@ export class Product {
 
   @Column({ length: 300, nullable: true })
   description: string;
-
-  @Column({ type: 'double' })
-  price: number;
-
-  @Column({ type: 'double' })
-  stock: number;
 
   @Column({
     type: 'enum',
@@ -37,10 +32,19 @@ export class Product {
 
   @OneToMany(
     () => CategoryProduct,
-    (categoryProduct) => categoryProduct.product,
+    (categoryProduct) => categoryProduct.category,
     {
       cascade: true,
     },
   )
   categoryProducts: CategoryProduct[];
+
+  @OneToMany(
+    () => SportCategories,
+    (sportCategories) => sportCategories.category,
+    {
+      cascade: true,
+    },
+  )
+  categorySports: SportCategories[];
 }

@@ -1,6 +1,6 @@
 import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Sport } from './sport.entity';
-import { Category } from 'src/catogories/entities/catogory.entity';
+import { Category } from 'src/modules/catogories/entities/catogory.entity';
 
 @Entity('sport-categories')
 export class SportCategories {
