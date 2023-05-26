@@ -22,8 +22,4 @@ export class CreateCategoryDTO {
 
   @IsEnum(Status)
   readonly status: Status;
-
-  @IsArray()
-  @ArrayMinSize(1)
-  readonly sports: number[];
 }

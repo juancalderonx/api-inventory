@@ -10,8 +10,8 @@ import {
 
 @Entity()
 export class Product {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column({ length: 255 })
   name: string;
@@ -42,5 +42,5 @@ export class Product {
       cascade: true,
     },
   )
-  categoryProducts: CategoryProduct[];
+  categoryProducts?: CategoryProduct[];
 }

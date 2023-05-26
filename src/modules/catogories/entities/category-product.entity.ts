@@ -1,15 +1,16 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Category } from './catogory.entity';
+// category-product.entity.ts
 import { Product } from 'src/modules/products/entities/product.entity';
+import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Category } from './category.entity';
 
-@Entity('category-product')
+@Entity()
 export class CategoryProduct {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
+
+  @ManyToOne(() => Product, (product) => product.categoryProducts)
+  product: Product;
 
   @ManyToOne(() => Category, (category) => category.categoryProducts)
   category: Category;
-
-  @ManyToOne(() => Product, (bodega) => bodega.categoryProducts)
-  product: Product;
 }

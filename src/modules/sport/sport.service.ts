@@ -1,11 +1,46 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSportDto } from './dto/create-sport.dto';
 import { UpdateSportDto } from './dto/update-sport.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Sport } from './entities/sport.entity';
+import { Repository } from 'typeorm';
+import { SportCategories } from './entities/sport-category.entity';
+import { Category } from '../catogories/entities/category.entity';
 
 @Injectable()
 export class SportService {
-  create(createSportDto: CreateSportDto) {
-    return 'This action adds a new sport';
+  constructor(
+    @InjectRepository(Sport)
+    private sportRepository: Repository<Sport>,
+    @InjectRepository(Category)
+    private categoryRepository: Repository<Category>,
+    @InjectRepository(SportCategories)
+    private sportCategoriesRepository: Repository<SportCategories>,
+  ) {}
+
+  async create(createSportDto: CreateSportDto): Promise<Sport> {
+    const { categories, ...sportData } = createSportDto;
+
+    const createdSport = this.sportRepository.create(sportData);
+    await this.sportRepository.save(createdSport);
+
+    const sportCategories = [];
+
+    for (const categoryId of categories) {
+      const sportCategory = new SportCategories();
+      sportCategory.sport = createdSport;
+
+      const category = await this.categoryRepository.findOneBy({
+        id: categoryId,
+      });
+      sportCategory.category = category;
+
+      sportCategories.push(sportCategory);
+    }
+
+    await this.sportCategoriesRepository.save(sportCategories);
+
+    return createdSport;
   }
 
   findAll() {

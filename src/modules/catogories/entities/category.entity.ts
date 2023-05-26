@@ -11,8 +11,8 @@ import { SportCategories } from 'src/modules/sport/entities/sport-category.entit
 
 @Entity()
 export class Category {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column({ length: 255 })
   name: string;

@@ -1,5 +1,12 @@
-import { IsString, Length } from 'class-validator';
+import {
+  ArrayMinSize,
+  IsArray,
+  IsEnum,
+  IsString,
+  Length,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
+import { Status } from 'src/common/enum/status-enum';
 
 export class CreateSportDto {
   @IsString()
@@ -9,4 +16,11 @@ export class CreateSportDto {
 
   @IsString()
   readonly description: string;
+
+  @IsEnum(Status)
+  readonly status: Status;
+
+  @IsArray()
+  @ArrayMinSize(1)
+  readonly categories: number[];
 }
